@@ -102,6 +102,14 @@ $ DEBUG="container" node ./example.js
 ...
 ```
 
+Or redefine the function to your own:
+```JavaScript
+container.debug = function() {
+    var args = Array.prototype.slice.call(arguments);
+    /* Debugger code */
+}
+```
+
 ## License
 [![JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/eslint/eslint)
 
