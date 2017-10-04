@@ -20,7 +20,7 @@ import Container from 'simple-container';
 var container = new Container();
 
 /* Create the container */
-container.create('postgres:alpine');
+container.create('hello-world:latest');
 
 /* Start the container */
 container.start();
@@ -88,6 +88,19 @@ Details in
 
 ## Debugging
 Use the `DEBUG` variable with the `container` option.
+
+Result of output:
+```bash
+$ DEBUG="container" node ./example.js
+  container { status: 'Pulling from library/postgres', id: 'alpine' } +0ms
+  container { status: 'Already exists',
+  container   progressDetail: {},
+  container   id: '019300c8a437' } +0ms
+  container { status: 'Pulling fs layer',
+  container   progressDetail: {},
+  container   id: '885fa9f8b950' } +0ms
+...
+```
 
 ## License
 [![JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/eslint/eslint)
