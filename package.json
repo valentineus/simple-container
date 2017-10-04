@@ -26,7 +26,9 @@
         "mocha": "^4.0.0"
     },
     "dependencies": {
-        "ancient-funicular": "^3.0.0"
+        "ancient-funicular": "^3.0.0",
+        "debug": "^3.1.0",
+        "dockerode": "^2.5.1"
     },
     "scripts": {
         "test": "mocha src/tests/index.js --require babel-core/register",
