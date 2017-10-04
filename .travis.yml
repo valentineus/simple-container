@@ -1,0 +1,46 @@
+language: node_js
+
+node_js:
+    - "8"
+    - "7"
+    - "6"
+    - "5"
+    - "4"
+
+os:
+    - linux
+    - osx
+
+notifications:
+    email:
+        - "info@valentineus.link"
+
+before_install:
+    - npm install --global nyc
+    - npm install --global codacy-coverage
+
+install:
+    - npm install --only=production
+    - npm install --only=development
+
+script:
+    - npm run check
+    - nyc npm run test
+    - nyc report --reporter=lcov
+
+after_success:
+    - nyc report --reporter=lcov
+    - cat ./coverage/lcov.info | codacy-coverage
+
+jobs:
+    include:
+        - stage: deploy
+          node_js: "8"
+          os: "linux"
+          before_deploy:
+              - npm run build
+          deploy:
+              provider: npm
+              skip_cleanup: true
+              email: "info@valentineus.link"
+              api_key: $NPM_PROJECT_TOKEN
