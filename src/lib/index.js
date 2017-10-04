@@ -9,7 +9,7 @@ import { statSync } from 'fs';
 export default class Container extends Item {
     /**
      * @constructs Container
-     * @param {Object} options
+     * @param {Object=} [options] - Service connection settings
      */
     constructor(options) {
         super();
@@ -17,7 +17,8 @@ export default class Container extends Item {
         /**
          * @protected
          * @type {Object}
-         * @description
+         * @description Docker class service management.
+         * https://github.com/apocas/dockerode
          */
         this._docker = null;
 
@@ -29,7 +30,7 @@ export default class Container extends Item {
             var stats = statSync(socket);
 
             if (!stats.isSocket()) {
-                throw new Error('');
+                throw new Error('Local service is not found.');
             }
 
             this._docker = new Docker({
@@ -40,27 +41,22 @@ export default class Container extends Item {
 
     /**
      * @protected
-     * @param {Object|String} options
-     * @description
+     * @param {Object|String} options - Container parameters
+     * @description Creates and registers a container in the system.
      */
     create(options) {
         var self = this;
-        var name = null;
 
         if (!self._isString(options) && !self._isObject(options)) {
             throw new Error('The variable \'options\' is not correct.');
         }
 
         if (self._isString(options)) {
-            name = options;
-            options = { Image: name };
+            var Image = options;
+            options = { Image };
         }
 
-        if (self._isObject(options)) {
-            name = options.Image;
-        }
-
-        self._pullImage(name, (error) => {
+        self._pullImage(options.Image, (error) => {
             self._handlerError(error);
             self._createContainer(options);
         });
@@ -68,32 +64,33 @@ export default class Container extends Item {
 
     /**
      * @protected
-     * @description
+     * @description Stops and destroys the container.
      */
     destroy() {}
 
     /**
      * @protected
-     * @param {String} name
-     * @param {Function} callback
-     * @description
+     * @param {String} image - Name of the image
+     * @param {Function} callback - Called function
+     * @description Pulls out the image of the container.
      */
-    _pullImage(name, callback) {
+    _pullImage(image, callback) {
         var self = this;
-        self._docker.pull(name).then(stream => {
+        self._docker.pull(image).then(stream => {
             self._docker.modem.followProgress(stream, callback, self.debug);
         }).catch(error => self._handlerError(error));
     }
 
     /**
      * @protected
-     * @param {Object} options
-     * @description
+     * @param {Object} options - Container settings
+     * @description Creating a container and registering management.
      */
     _createContainer(options) {
         var self = this;
         self._docker.createContainer(options).then(container => {
-            /* @todo Регистрация класса */
+            /* @todo Class registration */
+            self.debug(container);
         }).catch(error => self._handlerError(error));
     }
 
@@ -101,7 +98,7 @@ export default class Container extends Item {
      * @protected
      * @param {*} value - The variable to check
      * @returns {Boolean} Result of checking
-     * @description Checks the type of the variable
+     * @description Checks the type of the variable.
      */
     _isString(value) {
         return typeof value === 'string';
@@ -111,7 +108,7 @@ export default class Container extends Item {
      * @protected
      * @param {*} value - The variable to check
      * @returns {Boolean} Result of checking
-     * @description Checks the type of the variable
+     * @description Checks the type of the variable.
      */
     _isObject(value) {
         return typeof value === 'object';
@@ -119,19 +116,18 @@ export default class Container extends Item {
 
     /**
      * @protected
-     * @param {*} error
-     * @description
+     * @param {*} error - A string with an error
+     * @description Handles the error if present.
      */
     _handlerError(error) {
-        if (!!error) {
+        if (error) {
             throw new Error(error);
         }
     }
 
     /**
-     * @protected
-     * @param {*}
-     * @description
+     * @param {*} Any variables
+     * @description A simple debugger.
      */
     debug() {
         var args = Array.prototype.slice.call(arguments);
