@@ -7,26 +7,32 @@
 
 Simple and fast work with the Docker container.
 
+It uses the library
+[dockerode](https://github.com/apocas/dockerode).
+
 ## Installation
 ```bash
 npm install --save simple-container
 ```
 
 ## Using
-A simple example:
+A simple example that creates and starts a container:
 ```JavaScript
-import Container from 'simple-container';
+import Containers from 'simple-container';
 
-var container = new Container();
+var containers = new Containers();
 
-/* Create the container */
-container.create('hello-world:latest');
+containers.create('postgres:alpine').then(container => {
+    console.info(`The ${container.id} container was created.`);
+    start(container);
+});
 
-/* Start the container */
-container.start();
-
-/* Stop and destroy the container */
-container.destroy();
+/* Run the created container */
+function start(container) {
+    container.start().then(() => {
+        console.info(`The ${container.id} container is running.`);
+    });
+}
 ```
 
 ### Remote connection
@@ -34,7 +40,7 @@ By default, the local service is used.
 
 For example, if you want to use connection settings:
 ```JavaScript
-var container = new Container({
+var containers = new Containers({
     host: '127.0.0.1',
     port: 3000
 });
@@ -48,12 +54,12 @@ You can create a container in two ways.
 
 A simple way - to specify the name of the image:
 ```JavaScript
-container.create('hello-world:latest');
+containers.create('hello-world:latest');
 ```
 
 Another way - to provide an object with parameters:
 ```JavaScript
-container.create({
+containers.create({
     Image: 'postgres:alpine',
     Env: ['POSTGRES_PASSWORD = password'],
     Ports: [{
@@ -77,7 +83,7 @@ var auth = {
     serveraddress: 'https://index.docker.io/v1'
 };
 
-container.create({
+containers.create({
     Image: 'project:latest',
     authconfig: auth
 });
@@ -87,11 +93,11 @@ Details in
 [the documentation](https://github.com/apocas/dockerode#pull-from-private-repos).
 
 ## Debugging
-Use the `DEBUG` variable with the `container` option.
+Use the `DEBUG` variable with the `containers` option.
 
 Result of output:
 ```bash
-$ DEBUG="container" node ./example.js
+$ DEBUG="containers" node ./example.js
   container { status: 'Pulling from library/postgres', id: 'alpine' } +0ms
   container { status: 'Already exists',
   container   progressDetail: {},
@@ -104,7 +110,7 @@ $ DEBUG="container" node ./example.js
 
 Or redefine the function to your own:
 ```JavaScript
-container.debug = function() {
+containers.debug = function() {
     var args = Array.prototype.slice.call(arguments);
     /* Debugger code */
 }
