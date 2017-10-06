@@ -94,12 +94,37 @@ Details in
 [the documentation](https://github.com/apocas/dockerode#pull-from-private-repos).
 
 ## API
+<dl>
+    <dt>
+        <a href="#create">create(options)</a> ⇒ <code>Promise</code>
+    </dt>
+    <dd>
+        <p>Creates a container by options or name, returning the management interface.</p>
+    </dd>
+    <dt>
+        <a href="#get">get([id])</a> ⇒ <code>Promise</code>
+    </dt>
+    <dd>
+        <p>Returns the container management interface.</p>
+    </dd>
+    <dt>
+        <a href="#info">info([id])</a> ⇒ <code>Promise</code>
+    </dt>
+    <dd>
+        <p>Searches in existing containers.</p>
+    </dd>
+</dl>
+
+<a name="create"></a>
+
 ### create(options) ⇒ <code>Promise</code>
 Creates a container by options or name, returning the management interface.
 
 | Param | Type | Description |
 | --- | --- | --- |
 | options | <code>String</code> \ <code>Object</code> | The name of the image or options |
+
+<a name="get"></a>
 
 ### get([id]) ⇒ <code>Promise</code>
 Returns the container management interface.
@@ -108,12 +133,36 @@ Returns the container management interface.
 | --- | --- | --- |
 | [id] | <code>String</code> | Container ID |
 
+#### Examples:
+```JavaScript
+containers.get().then(containers => {
+    /* containers - All containers in the system */
+});
+
+containers.get('5520e855dd2c301b23a718cf392f9619d1edc3dc0fa294559b725d7588ca807f').then(container => {
+    /* container - The specified container */
+});
+```
+
+<a name="info"></a>
+
 ### info([id]) ⇒ <code>Promise</code>
 Searches in existing containers.
 
 | Param | Type | Description |
 | --- | --- | --- |
 | [id] | <code>String</code> | Container ID |
+
+#### Examples:
+```JavaScript
+containers.info().then(containers => {
+    /* containers - All containers in the system */
+});
+
+containers.info('21ae4a54be582d13fffd796341b3561a8c8e0c59dd6c6c3239529188e2b3321d').then(container => {
+    /* container - The specified container */
+});
+```
 
 ## Debugging
 Use the `DEBUG` variable with the `containers` option.
