@@ -15,7 +15,15 @@
         "type": "git",
         "url": "git://github.com/valentineus/simple-container.git"
     },
-    "keywords": [],
+    "keywords": [
+        "minimalism",
+        "container",
+        "interface",
+        "testing",
+        "docker",
+        "simple",
+        "api"
+    ],
     "main": "lib/index.js",
     "devDependencies": {
         "babel-cli": "^6.26.0",
