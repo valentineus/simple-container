@@ -78,10 +78,11 @@ Examples and details in
 An additional example of obtaining a private image:
 ```JavaScript
 var auth = {
+    serveraddress: 'https://index.docker.io/v1'
+    email: 'email@example.org',
     username: 'username',
     password: 'password',
-    email: 'email@example.org',
-    serveraddress: 'https://index.docker.io/v1'
+    auth: ''
 };
 
 containers.create({
