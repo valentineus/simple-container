@@ -19,10 +19,9 @@ npm install --save simple-container
 A simple example that creates and starts a container:
 ```JavaScript
 import Containers from 'simple-container';
-
 var containers = new Containers();
 
-containers.create('postgres:alpine').then(container => {
+containers.create('hello-world:latest').then(container => {
     console.info(`The ${container.id} container was created.`);
     start(container);
 });
@@ -74,6 +73,8 @@ containers.create({
 Examples and details in
 [the documentation](https://github.com/apocas/dockerode#manipulating-a-container).
 
+#### Third-party repository
+
 An additional example of obtaining a private image:
 ```JavaScript
 var auth = {
@@ -91,6 +92,28 @@ containers.create({
 
 Details in
 [the documentation](https://github.com/apocas/dockerode#pull-from-private-repos).
+
+## API
+### create(options) ⇒ <code>Promise</code>
+Creates a container by options or name, returning the management interface.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| options | <code>String</code> \ <code>Object</code> | The name of the image or options |
+
+### get([id]) ⇒ <code>Promise</code>
+Returns the container management interface.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [id] | <code>String</code> | Container ID |
+
+### info([id]) ⇒ <code>Promise</code>
+Searches in existing containers.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [id] | <code>String</code> | Container ID |
 
 ## Debugging
 Use the `DEBUG` variable with the `containers` option.
