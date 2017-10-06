@@ -1,3 +1,4 @@
+import { normalize } from 'path';
 import createDebug from 'debug';
 import Docker from 'dockerode';
 import { statSync } from 'fs';
@@ -183,7 +184,7 @@ export default class Containers {
      * @description Getting the system socket.
      */
     _getSocket() {
-        return process.env.DOCKER_SOCKET || '/var/run/docker.sock';
+        return process.env.DOCKER_SOCKET || normalize('/var/run/docker.sock');
     }
 
     /**
