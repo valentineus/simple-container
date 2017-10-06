@@ -30,7 +30,7 @@
         "dockerode": "^2.5.1"
     },
     "scripts": {
-        "test": "mocha src/tests/index.js --require babel-core/register",
+        "test": "mocha src/tests/index.js --require babel-core/register --timeout 25000",
         "build": "babel ./src/lib --out-dir ./lib",
         "check": "eslint ./src/lib/"
     }
