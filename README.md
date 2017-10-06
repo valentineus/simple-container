@@ -6,6 +6,9 @@
 [![Gitter Badge](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/valentineus/simple-container)
 
 Simple and fast work with the Docker container.
+Works great in
+[Travis CI](https://travis-ci.org/)
+for testing
 
 It uses the library
 [dockerode](https://github.com/apocas/dockerode).
