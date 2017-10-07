@@ -1,5 +1,4 @@
 import { normalize } from 'path';
-import createDebug from 'debug';
 import Docker from 'dockerode';
 import { statSync } from 'fs';
 
@@ -222,7 +221,7 @@ export default class Containers {
                 callback(error);
             }
 
-            self._docker.modem.followProgress(stream, callback, self.debug);
+            self._docker.modem.followProgress(stream, callback);
         });
     }
 
@@ -259,15 +258,5 @@ export default class Containers {
      */
     _isObject(value) {
         return typeof value === 'object';
-    }
-
-    /**
-     * @param {*} Any variables
-     * @description A simple debugger.
-     */
-    debug() {
-        var args = Array.prototype.slice.call(arguments);
-        var debug = createDebug('containers');
-        debug.apply(null, args);
     }
 }
