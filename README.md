@@ -22,6 +22,7 @@ npm install --save simple-container
 A simple example that creates and starts a container:
 ```JavaScript
 import Containers from 'simple-container';
+
 var containers = new Containers();
 
 containers.create('hello-world:latest').then(container => {
@@ -166,30 +167,6 @@ containers.info().then(containers => {
 containers.info('21ae4a54be582d13fffd796341b3561a8c8e0c59dd6c6c3239529188e2b3321d').then(container => {
     /* container - The specified container */
 });
-```
-
-## Debugging
-Use the `DEBUG` variable with the `containers` option.
-
-Result of output:
-```bash
-$ DEBUG="containers" node ./example.js
-  container { status: 'Pulling from library/postgres', id: 'alpine' } +0ms
-  container { status: 'Already exists',
-  container   progressDetail: {},
-  container   id: '019300c8a437' } +0ms
-  container { status: 'Pulling fs layer',
-  container   progressDetail: {},
-  container   id: '885fa9f8b950' } +0ms
-...
-```
-
-Or redefine the function to your own:
-```JavaScript
-containers.debug = function() {
-    var args = Array.prototype.slice.call(arguments);
-    /* Debugger code */
-}
 ```
 
 ## License
