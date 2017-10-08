@@ -22,8 +22,7 @@ before_install:
     - npm install --global codacy-coverage
 
 install:
-    - npm install --only=production
-    - npm install --only=development
+    - npm install
 
 script:
     - npm run check
@@ -40,9 +39,10 @@ jobs:
           node_js: "8"
           os: "linux"
           before_deploy:
-              - npm run build
+            - npm install
+            - npm run build
           deploy:
               provider: npm
-              skip_cleanup: true
+              skip_cleanup: false
               email: "info@valentineus.link"
               api_key: $NPM_PROJECT_TOKEN
