@@ -53,6 +53,7 @@ jobs:
 
         - provider: releases
           skip_cleanup: true
+          file_glob: true
           file: "simple-container-*.tgz"
           email: "info@valentineus.link"
           api_key: $GITHUB_PROJECT_TOKEN
