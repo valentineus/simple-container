@@ -43,9 +43,9 @@ jobs:
         - npm install
         - npm run build
       deploy:
-      provider: npm
-      skip_cleanup: true
-      email: "info@valentineus.link"
-      api_key: $NPM_PROJECT_TOKEN
-      on:
-        tags: true
+        provider: npm
+        skip_cleanup: true
+        email: "info@valentineus.link"
+        api_key: $NPM_PROJECT_TOKEN
+        on:
+          tags: true
