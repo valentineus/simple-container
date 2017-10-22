@@ -42,10 +42,19 @@ jobs:
         - git stash --all
         - npm install
         - npm run build
+        - npm pack
       deploy:
-        provider: npm
-        skip_cleanup: true
-        email: "info@valentineus.link"
-        api_key: $NPM_PROJECT_TOKEN
-        on:
-          tags: true
+        - provider: npm
+          skip_cleanup: true
+          email: "info@valentineus.link"
+          api_key: $NPM_PROJECT_TOKEN
+          on:
+            tags: true
+
+        - provider: releases
+          skip_cleanup: true
+          file: "simple-container-*.tgz"
+          email: "info@valentineus.link"
+          api_key: $GITHUB_PROJECT_TOKEN
+          on:
+            tags: true
