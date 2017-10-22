@@ -1,4 +1,5 @@
 # Simple Container
+[![GitHub Release](https://img.shields.io/github/release/valentineus/simple-container.svg)](https://github.com/valentineus/simple-container/releases)
 [![NPM](https://img.shields.io/npm/v/simple-container.svg)](https://www.npmjs.com/package/simple-container)
 [![Build Status](https://travis-ci.org/valentineus/simple-container.svg?branch=master)](https://travis-ci.org/valentineus/simple-container)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/286921416577421c98e5f77ce400926c)](https://www.codacy.com/app/valentineus/simple-container)
